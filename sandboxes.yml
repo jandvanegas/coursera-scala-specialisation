@@ -151,5 +151,17 @@
       ansible.builtin.copy:
         src: .p10k.zsh
         dest: "{{ ansible_env.HOME }}/.p10k.zsh"
+    - name: Zsh autosuggestions
+      when: (result.stat.isreg is undefined) or (not result.stat.isreg)
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-autosuggestions
+        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/plugins/zsh-autosuggestions"
+        depth: 1
+    - name: Zsh syntax highlight
+      when: (result.stat.isreg is undefined) or (not result.stat.isreg)
+      ansible.builtin.git:
+        repo: https://github.com/zsh-users/zsh-syntax-highlighting
+        dest: "{{ ansible_env.HOME }}/.oh-my-zsh/plugins/zsh-syntax-highlighting"
+        depth: 1
 ...
 
