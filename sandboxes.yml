@@ -1,0 +1,70 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Install Java and Coursier to install scala
+  hosts: sandboxes
+  become: True
+  tasks:
+    - name: Install java
+      package:
+        name: openjdk-11-jdk
+        update_cache: true
+    - name: Download Coursier
+      ansible.builtin.get_url:
+        url: https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz
+        dest: /opt/cs.gz
+    - name: "Check if cs exists"
+      stat:
+        path: "/opt/cs"
+      register: result
+    - name: Decompress Coursier
+      ansible.builtin.shell: "[ -f /opt/cs ] || gzip -d /opt/cs.gz"
+      when: (result.stat.isreg is undefined) or (not result.stat.isreg)
+      args:
+        chdir: /opt
+    - name: Create symlink to make Coursier available
+      when: (result.stat.isreg is undefined) or (not result.stat.isreg)
+      ansible.builtin.file:
+        src: /opt/cs
+        dest: /usr/local/bin/cs
+        state: link
+    - name: Changing perm, adding "+x"
+      ansible.builtin.file: 
+        dest: /opt/cs 
+        mode: a+x
+- name: Install Scala with Coursier
+  hosts: sandboxes
+  become: False
+  tasks:
+    - name: "Check if scala exists"
+      stat:
+        path: "{{ ansible_env.HOME }}/.local/share/coursier/bin/scala"
+      register: result
+    - name: Install scala with Coursier if is not installed
+      when: (result.stat.isreg is undefined) or (not result.stat.isreg)
+      ansible.builtin.shell: cs setup --yes --jvm adopt:11
+- name: Install Editor
+  hosts: sandboxes
+  become: False
+  tasks:
+    - name: "Add neovim repo"
+      become: True
+      ansible.builtin.apt_repository:
+        repo: ppa:neovim-ppa/stable
+    - name: "Install Neovim"
+      become: True
+      package:
+        name: neovim
+        update_cache: True
+    - name: "Install Tmux"
+      become: True
+      package:
+        name: tmux
+        update_cache: True
+    - name: Make sure ssk keys are passed to guest.
+      local_action: command ssh-add
+    - name: Download dot-files
+      ansible.builtin.git:
+        repo: git@github.com:jandvanegas/dot-files.git
+        dest: "{{ ansible_env.HOME }}/dot-files"
+        accept_hostkey: yes
+...
