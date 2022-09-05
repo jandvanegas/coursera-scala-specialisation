@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
   # config.vm.provision "shell", path: "./scripts/install-scala.sh", privileged: false
   config.vm.provider "virtualbox" do |virtualbox|
     virtualbox.name = "scala"
-    virtualbox.memory = 4096
-    virtualbox.cpus = 2
+    virtualbox.memory = 8192
+    virtualbox.cpus = 4
   end
 end

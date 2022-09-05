@@ -1,2 +1,5 @@
 .vagrant
-*.log
+*.metals/
+.bloop/
+.ammonite/
+metals.sbt.log

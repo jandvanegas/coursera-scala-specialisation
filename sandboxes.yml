@@ -33,7 +33,6 @@
         mode: a+x
 - name: Install Scala with Coursier
   hosts: sandboxes
-  when: 0 > 1
   become: False
   tasks:
     - name: "Check if scala exists"
@@ -60,6 +59,8 @@
       package:
         name: 
           - neovim
+          - sqlite3
+          - libsqlite3-dev
           - gcc # treesitter
           - build-essential # treesitter
           - fzf # Search
@@ -87,6 +88,10 @@
         src: "{{ ansible_env.HOME }}/dot-files/config/nvim/lua/user"
         dest: "{{ ansible_env.HOME }}/.config/nvim/lua/user"
         state: link
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: ~/.local/share/nvim/databases
+        state: directory
     - name: Create symlink for Tmux
       ansible.builtin.file:
         src: "{{ ansible_env.HOME }}/dot-files/.tmux.conf"
