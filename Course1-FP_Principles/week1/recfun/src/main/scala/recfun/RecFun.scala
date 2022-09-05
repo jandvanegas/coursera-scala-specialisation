@@ -41,4 +41,13 @@ object RecFun extends RecFunInterface:
     }
   /** Exercise 3
     */
-  def countChange(money: Int, coins: List[Int]): Int = ???
+  def countChange(money: Int, coins: List[Int]): Int = 
+    if (money == 0){
+      return 1
+    }
+    if (coins.isEmpty || money < 0){
+      return 0
+    }
+    return countChange(money - coins.head, coins)
+    + countChange(money, coins.tail)
+
