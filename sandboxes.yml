@@ -4,10 +4,6 @@
   hosts: sandboxes
   become: True
   tasks:
-    - name: Install java
-      package:
-        name: openjdk-11-jdk
-        update_cache: true
     - name: Download Coursier
       ansible.builtin.get_url:
         url: https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz
