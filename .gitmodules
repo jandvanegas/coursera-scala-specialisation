@@ -1,0 +1,6 @@
+[submodule "dot-files"]
+	path = dot-files
+	url = git@github.com:jandvanegas/dot-files.git
+[submodule "progfun-wiki"]
+	path = progfun-wiki
+	url = git@github.com:jandvanegas/progfun-wiki.git
