@@ -3,6 +3,7 @@ Vagrant.configure(2) do |config|
   config.vm.hostname = "testserver"
   config.vm.network "forwarded_port", id: 'ssh', guest: 22, host: 2222, host_ip: "127.0.0.1", auto_correct: false
   config.vm.network "forwarded_port", id: 'docs', guest: 4000, host: 8000, host_ip: "127.0.0.1", auto_correct: false
+  config.vm.network "forwarded_port", id: 'markdown', guest: 8070, host: 8070, host_ip: "127.0.0.1", auto_correct: false
   # config.vm.network "public_network", ip: "192.168.56.2"
   config.ssh.forward_agent = true
   # disable updating guest additions

@@ -20,6 +20,8 @@ characters present in the leaves below it. The weight of a branching node is the
 total weight of the leaves below it: this information is necessary for the
 construction of the tree.
 
+![](img/2022-09-27-17-53-33.png)
+
 Note that a given encoding is only optimal if the character frequencies in the
 encoded text match the weights in the code tree.
 
@@ -131,10 +133,14 @@ Decoding
     type Bit = Int def decode(tree: CodeTree, bits: List[Bit]): List[Char] = ...
 
     Use this function and the frenchCode code tree to decode the bit sequence in
-    secret. Store the resulting character sequence in decodedSecret. Encoding
+    secret. Store the resulting character sequence in decodedSecret. 
+
+Encoding
 
     This section deals with the Huffman encoding of a sequence of characters into a
-    sequence of bits. ...Using a Huffman Tree
+    sequence of bits. 
+    
+...Using a Huffman Tree
 
     Define the function encode which encodes a list of characters using Huffman
     coding, given a code tree.
@@ -142,7 +148,9 @@ Decoding
     def encode(tree: CodeTree)(text: List[Char]): List[Bit] = ...
 
     Your implementation must traverse the coding tree for each character, a task
-    that should be done using a helper function. ...Using a Coding Table
+    that should be done using a helper function. 
+
+...Using a Coding Table
 
     The previous function is simple, but very inefficient. You goal is now to define
     quickEncode which encodes an equivalent representation, but more efficiently.
