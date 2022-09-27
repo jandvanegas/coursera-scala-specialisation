@@ -20,6 +20,11 @@ class HuffmanSuite extends munit.FunSuite:
       assertEquals(chars(t2), List('a','b','d'))
   }
 
+  test("weight of a larger tree (10pts)") {
+    new TestTrees:
+      assertEquals(times(List('a', 'b', 'a')), List(('a', 2), ('b', 1)))
+  }
+
   test("string2chars hello world") {
     assertEquals(string2Chars("hello, world"), List('h', 'e', 'l', 'l', 'o', ',', ' ', 'w', 'o', 'r', 'l', 'd'))
   }

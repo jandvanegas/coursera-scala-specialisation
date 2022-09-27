@@ -49,9 +49,8 @@ case class Fork (
   left: CodeTree, 
   right: CodeTree, 
   chars: List[Char], 
-  weight: Int) extends CodeTree case 
-
-class Leaf(char: Char, weight: Int) extends CodeTree
+  weight: Int) extends CodeTree 
+case class Leaf(char: Char, weight: Int) extends CodeTree
 ```
 
 To begin, implement the following two (hint: very simple) functions using
@@ -126,45 +125,45 @@ Proceed with the following steps to break up this assignment into smaller parts
 
 Decoding
 
-Define the function decode which decodes a list of bits (which were already
-encoded using a Huffman tree), given the corresponding coding tree.
+    Define the function decode which decodes a list of bits (which were already
+    encoded using a Huffman tree), given the corresponding coding tree.
 
-type Bit = Int def decode(tree: CodeTree, bits: List[Bit]): List[Char] = ...
+    type Bit = Int def decode(tree: CodeTree, bits: List[Bit]): List[Char] = ...
 
-Use this function and the frenchCode code tree to decode the bit sequence in
-secret. Store the resulting character sequence in decodedSecret. Encoding
+    Use this function and the frenchCode code tree to decode the bit sequence in
+    secret. Store the resulting character sequence in decodedSecret. Encoding
 
-This section deals with the Huffman encoding of a sequence of characters into a
-sequence of bits. ...Using a Huffman Tree
+    This section deals with the Huffman encoding of a sequence of characters into a
+    sequence of bits. ...Using a Huffman Tree
 
-Define the function encode which encodes a list of characters using Huffman
-coding, given a code tree.
+    Define the function encode which encodes a list of characters using Huffman
+    coding, given a code tree.
 
-def encode(tree: CodeTree)(text: List[Char]): List[Bit] = ...
+    def encode(tree: CodeTree)(text: List[Char]): List[Bit] = ...
 
-Your implementation must traverse the coding tree for each character, a task
-that should be done using a helper function. ...Using a Coding Table
+    Your implementation must traverse the coding tree for each character, a task
+    that should be done using a helper function. ...Using a Coding Table
 
-The previous function is simple, but very inefficient. You goal is now to define
-quickEncode which encodes an equivalent representation, but more efficiently.
+    The previous function is simple, but very inefficient. You goal is now to define
+    quickEncode which encodes an equivalent representation, but more efficiently.
 
-def quickEncode(tree: CodeTree)(text: List[Char]): List[Bit] = ...
+    def quickEncode(tree: CodeTree)(text: List[Char]): List[Bit] = ...
 
-Your implementation will build a coding table once which, for each possible
-character, gives the list of bits of its code. The simplest way - but not the
-most efficient - is to encode the table of characters as a list of pairs.
+    Your implementation will build a coding table once which, for each possible
+    character, gives the list of bits of its code. The simplest way - but not the
+    most efficient - is to encode the table of characters as a list of pairs.
 
-type CodeTable = List[(Char, List[Bit])]
+    type CodeTable = List[(Char, List[Bit])]
 
-The encoding must then be done by accessing the table, via a function codeBits.
+    The encoding must then be done by accessing the table, via a function codeBits.
 
-def codeBits(table: CodeTable)(char: Char): List[Bit] = ...
+    def codeBits(table: CodeTable)(char: Char): List[Bit] = ...
 
-The creation of the table is defined by convert which traverses the coding tree
-and constructs the character table.
+    The creation of the table is defined by convert which traverses the coding tree
+    and constructs the character table.
 
-def convert(t: CodeTree): CodeTable = ...
+    def convert(t: CodeTree): CodeTable = ...
 
-Implement the function convert by using the function mergeCodeTables below:
+    Implement the function convert by using the function mergeCodeTables below:
 
-def mergeCodeTables(a: CodeTable, b: CodeTable): CodeTable = ...
+    def mergeCodeTables(a: CodeTable, b: CodeTable): CodeTable = ...
